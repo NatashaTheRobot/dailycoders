@@ -14,3 +14,7 @@ capybara-*.html
 **.orig
 rerun.txt
 pickle-email-*.html
+/.idea
+/config/database.yml
+.DS_Store
+/config/application.yml
