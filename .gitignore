@@ -15,6 +15,7 @@ capybara-*.html
 rerun.txt
 pickle-email-*.html
 /.idea
+.idea/*
 /config/database.yml
 .DS_Store
 /config/application.yml
