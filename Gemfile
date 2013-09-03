@@ -2,6 +2,7 @@ source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.0.0'
+gem 'bootstrap-sass', '2.3.2.2'
 gem 'pg'
 
 gem 'haml', '4.0.3'
@@ -28,4 +29,6 @@ group :assets do
   gem 'coffee-rails', '4.0.0'
   gem 'uglifier', '2.2.1'
 end
+
+gem 'jquery-rails', '3.0.4'
 
