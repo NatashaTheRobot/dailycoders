@@ -2,10 +2,11 @@ source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.0.0'
-gem 'bootstrap-sass', '2.3.2.2'
 gem 'pg'
 
+gem 'bootstrap-sass', '2.3.2.2'
 gem 'haml', '4.0.3'
+gem "turbolinks", '1.3.0'
 
 group :development, :test do
   gem 'rspec-rails', '2.14.0'
