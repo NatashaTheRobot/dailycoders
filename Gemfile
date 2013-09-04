@@ -4,6 +4,8 @@ source 'https://rubygems.org'
 gem 'rails', '4.0.0'
 gem 'pg'
 
+gem "omniauth-github", '1.1.1'
+
 gem 'bootstrap-sass', '2.3.2.2'
 gem 'haml', '4.0.3'
 gem "turbolinks", '1.3.0'
