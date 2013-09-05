@@ -1,4 +1,6 @@
 - if current_user
   = "Welcome #{current_user.name}"
 - else
-  = link_to "Sign in with Github", "/auth/github"
+  %a.btn-auth{:class => "btn-github large", :href => "/auth/github"}
+    Sign in with
+    %b Github
