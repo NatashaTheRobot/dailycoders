@@ -16,6 +16,24 @@ Spork.prefork do
   require 'rspec/rails'
   require 'rspec/autorun'
 
+  OmniAuth.config.test_mode = true
+  omniauth_hash = { 'provider' => 'github',
+                    'uid' => '12345',
+                    'info' => {
+                        'name' => 'natasha',
+                        'email' => 'hi@natashatherobot.com',
+                        'nickname' => 'NatashaTheRobot'
+                    },
+                    'extra' => {'raw_info' =>
+                                    { 'location' => 'San Francisco',
+                                      'gravatar_id' => '123456789'
+                                    }
+                    }
+  }
+
+  OmniAuth.config.add_mock(:github, omniauth_hash)
+
+
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
   Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
