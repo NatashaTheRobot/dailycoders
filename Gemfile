@@ -10,6 +10,8 @@ gem 'bootstrap-sass', '2.3.2.2'
 gem 'haml', '4.0.3'
 gem "turbolinks", '1.3.0'
 
+gem 'rails_12factor', group: :production # heroku gem for assets
+
 group :development, :test do
   gem 'rspec-rails', '2.14.0'
   gem 'annotate', '2.5.0'
