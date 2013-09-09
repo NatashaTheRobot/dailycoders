@@ -15,6 +15,8 @@
 #
 
 class User < ActiveRecord::Base
+  extend FriendlyId
+  friendly_id :nickname, use: :slugged
 
   def self.create_with_omniauth(auth)
     create! do |user|
