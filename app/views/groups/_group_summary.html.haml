@@ -1,0 +1,21 @@
+.row.group_summary_container
+  .col-md-1.col-md-offset-1.col-xs-2.col-xs-offset-1
+    = image_tag group.image_url, size: "60"
+  .col-md-8.col-xs-8
+    = group.name
+  .col-md-1.col-xs-1
+    - if group.private
+      %span.glyphicon.glyphicon-lock
+
+
+
+
+-##%tr
+-##%td= group.name
+-##%td= group.image_url
+-##%td= group.description
+-##%td= group.private
+-##%td= link_to 'Show', group
+-##%td= link_to 'Edit', edit_group_path(group)
+-##%td= link_to 'Destroy', group, method: :delete, data: { confirm: 'Are you sure?' }
+-##%br/
