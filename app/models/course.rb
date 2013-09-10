@@ -12,8 +12,15 @@
 #
 
 class Course < ActiveRecord::Base
+
+  include Authority::Abilities
+
   extend FriendlyId
   friendly_id :name, use: [:slugged, :history]
+
+  has_many :enrollments
+
+  self.authorizer_name = 'CourseAuthorizer'
 
   # Try building a slug based on the following fields in
   # increasing order of specificity.

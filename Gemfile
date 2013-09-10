@@ -6,7 +6,6 @@ gem 'pg'
 gem "omniauth-github", '1.1.1'
 
 #assets
-
 gem 'sass-rails', '4.0.0'
 gem 'coffee-rails', '4.0.0'
 gem 'uglifier', '2.2.1'
@@ -16,6 +15,7 @@ gem "turbolinks", '1.3.0'
 gem 'anjlab-bootstrap-rails', '>= 3.0.0.0', :require => 'bootstrap-rails'
 
 gem 'friendly_id', '5.0.0.beta4'
+gem 'authority', '2.7.0'
 
 group :development, :test do
   gem 'rspec-rails', '2.14.0'
