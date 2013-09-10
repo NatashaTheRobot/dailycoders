@@ -1,7 +1,7 @@
 Dailycoders::Application.routes.draw do
 
   resources :courses
-  resources :users
+  resources :users, path: 'coders'
 
   root to: "users#new"
   get "/auth/:provider/callback" => "sessions#create"
