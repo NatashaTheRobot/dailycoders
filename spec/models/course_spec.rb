@@ -15,6 +15,8 @@ require 'spec_helper'
 
 describe Course do
 
+  it { should validate_presence_of :name }
+  it { should validate_presence_of :start_date }
   it { should have_many :enrollments }
 
 end

@@ -22,6 +22,9 @@ class Course < ActiveRecord::Base
 
   self.authorizer_name = 'CourseAuthorizer'
 
+  validates :name, presence: true
+  validates :start_date, presence: true
+
   # Try building a slug based on the following fields in
   # increasing order of specificity.
   def slug_candidates

@@ -3,6 +3,7 @@ require 'spec_helper'
 describe SessionsController do
 
   before do
+    User.delete_all
     request.env['omniauth.auth'] = OmniAuth.config.mock_auth[:github]
   end
 
