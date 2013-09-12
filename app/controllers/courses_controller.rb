@@ -1,9 +1,11 @@
 class CoursesController < ApplicationController
+
   before_action :set_course, only: [:show, :edit, :update, :destroy]
+  authorize_actions_for Course, only: [:new, :create]
 
   # GET /courses
   def index
-    @courses = Course.all
+    @courses = current_user.courses
   end
 
   # GET /courses/1
@@ -22,6 +24,8 @@ class CoursesController < ApplicationController
   # POST /courses
   def create
     @course = Course.new(course_params)
+    enrollment = Enrollment.new( course: @course, user: current_user, admin: true )
+    @course.enrollments = [enrollment]
 
     if @course.save
       redirect_to @course, notice: 'Course was successfully created.'
@@ -49,6 +53,7 @@ class CoursesController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_course
       @course = Course.friendly.find(params[:id].to_s.downcase)
+      authorize_action_for(@course)
     end
 
     # Only allow a trusted parameter "white list" through.
