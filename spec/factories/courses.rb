@@ -10,7 +10,5 @@
 FactoryGirl.define do
   factory :course do
     name "iOS for Beginners"
-    start_date "2013-01-15"
-    end_date "2013-03-15"
   end
 end

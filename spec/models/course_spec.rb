@@ -5,8 +5,6 @@
 #  id         :integer          not null, primary key
 #  name       :string(255)
 #  slug       :string(255)
-#  start_date :date
-#  end_date   :date
 #  created_at :datetime
 #  updated_at :datetime
 #
@@ -16,7 +14,8 @@ require 'spec_helper'
 describe Course do
 
   it { should validate_presence_of :name }
-  it { should validate_presence_of :start_date }
-  it { should have_many :enrollments }
+  it { should have_many(:sessions).dependent(:destroy) }
+  it { should have_many(:enrollments).through(:sessions) }
+  it { should have_many(:leaderships).dependent(:destroy) }
 
 end

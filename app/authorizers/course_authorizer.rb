@@ -12,7 +12,7 @@ class CourseAuthorizer < ApplicationAuthorizer
 
   # only user enrolled in the course have read access
   def readable_by?(user)
-    user.enrolled_in?(resource)
+    user.enrolled_in?(resource) || user.admin_for?(resource)
   end
 
   # only the course admins can update the course

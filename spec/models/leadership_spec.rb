@@ -1,20 +1,17 @@
 # == Schema Information
 #
-# Table name: enrollments
+# Table name: leaderships
 #
 #  id         :integer          not null, primary key
+#  course_id  :integer
 #  user_id    :integer
 #  created_at :datetime
 #  updated_at :datetime
-#  session_id :integer
 #
 
 require 'spec_helper'
 
-describe Enrollment do
-
+describe Leadership do
   it { should belong_to :user }
-  it { should belong_to :session }
-  it { should validate_uniqueness_of(:user_id).scoped_to(:session_id) }
-
+  it { should belong_to :course }
 end

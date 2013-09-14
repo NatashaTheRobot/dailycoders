@@ -1,8 +1,8 @@
 # Read about factories at https://github.com/thoughtbot/factory_girl
 
 FactoryGirl.define do
-  factory :enrollment do
+  factory :leadership do
+    course nil
     user nil
-    session nil
   end
 end
