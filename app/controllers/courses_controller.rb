@@ -5,7 +5,7 @@ class CoursesController < ApplicationController
 
   # GET /courses
   def index
-    @courses = current_user.courses
+    @courses = current_user.all_courses
   end
 
   # GET /courses/1
@@ -24,8 +24,8 @@ class CoursesController < ApplicationController
   # POST /courses
   def create
     @course = Course.new(course_params)
-    enrollment = Enrollment.new( course: @course, user: current_user, admin: true )
-    @course.enrollments = [enrollment]
+    leadership = Leadership.new( course: @course, user: current_user )
+    @course.leaderships = [leadership]
 
     if @course.save
       redirect_to @course, notice: 'Course was successfully created.'
@@ -58,6 +58,6 @@ class CoursesController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def course_params
-      params.require(:course).permit(:name, :start_date, :end_date)
+      params.require(:course).permit(:name)
     end
 end

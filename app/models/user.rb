@@ -24,7 +24,10 @@ class User < ActiveRecord::Base
   friendly_id :nickname, use: :slugged
 
   has_many :enrollments
-  has_many :courses, through: :enrollments
+  has_many :sessions, through: :enrollments
+  has_many :courses, through: :sessions
+
+  has_many :leaderships
 
   def self.create_with_omniauth(auth)
     create! do |user|
@@ -47,12 +50,16 @@ class User < ActiveRecord::Base
   end
 
   def admin_for?(course)
+    leaderships = self.leaderships.select { |leadership| leadership.course == course }
+    leaderships.count > 0
+  end
 
-    if self.enrolled_in?(course)
-      admin_enrollments = self.enrollments.select { |enrollment| enrollment.course == course && enrollment.admin}
-      return true if admin_enrollments.count > 0
+  # includes courses that might not have sessions yet but the user is a leader for
+  def all_courses
+    courses = self.courses.to_a
+    self.leaderships.each do |leadership|
+      courses << leadership.course unless courses.include?(leadership.course)
     end
-
-    return false
+    return courses
   end
 end

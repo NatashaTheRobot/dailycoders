@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130910140050) do
+ActiveRecord::Schema.define(version: 20130914145721) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -19,8 +19,6 @@ ActiveRecord::Schema.define(version: 20130910140050) do
   create_table "courses", force: true do |t|
     t.string   "name"
     t.string   "slug"
-    t.date     "start_date"
-    t.date     "end_date"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -29,14 +27,12 @@ ActiveRecord::Schema.define(version: 20130910140050) do
 
   create_table "enrollments", force: true do |t|
     t.integer  "user_id"
-    t.integer  "course_id"
-    t.boolean  "admin"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "session_id"
   end
 
-  add_index "enrollments", ["course_id"], name: "index_enrollments_on_course_id", using: :btree
-  add_index "enrollments", ["user_id", "course_id"], name: "index_enrollments_on_user_id_and_course_id", unique: true, using: :btree
+  add_index "enrollments", ["user_id", "session_id"], name: "index_enrollments_on_user_id_and_session_id", unique: true, using: :btree
   add_index "enrollments", ["user_id"], name: "index_enrollments_on_user_id", using: :btree
 
   create_table "friendly_id_slugs", force: true do |t|
@@ -60,6 +56,27 @@ ActiveRecord::Schema.define(version: 20130910140050) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "leaderships", force: true do |t|
+    t.integer  "course_id"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "leaderships", ["course_id"], name: "index_leaderships_on_course_id", using: :btree
+  add_index "leaderships", ["user_id", "course_id"], name: "index_leaderships_on_user_id_and_course_id", unique: true, using: :btree
+  add_index "leaderships", ["user_id"], name: "index_leaderships_on_user_id", using: :btree
+
+  create_table "sessions", force: true do |t|
+    t.integer  "course_id"
+    t.date     "start_date"
+    t.date     "end_date"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "sessions", ["course_id"], name: "index_sessions_on_course_id", using: :btree
 
   create_table "students", force: true do |t|
     t.integer  "user_id"

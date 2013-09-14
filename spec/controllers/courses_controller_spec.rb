@@ -9,13 +9,14 @@ describe CoursesController do
     Course.delete_all
   end
 
-  let(:valid_attributes) { { :name => "My Awesome Class", start_date: Date.today } }
+  let(:valid_attributes) { { "name" => "My Awesome Class" } }
   let(:valid_session) { { user_id: @user.id } }
 
   describe "GET index" do
     it "assigns all courses for the user as @courses" do
       course = Course.create! valid_attributes
-      Enrollment.create!( course: course, user: @user )
+      session = FactoryGirl.create :session, course: course
+      Enrollment.create!( session: session, user: @user )
       get :index, {}, valid_session
       assigns(:courses).should eq([course])
     end
@@ -85,24 +86,23 @@ describe CoursesController do
     describe "with valid params" do
       before do
         @course = Course.create! valid_attributes
-        Enrollment.create!( course: @course, user: @user, admin: true )
+        FactoryGirl.create :leadership, course: @course, user: @user
       end
 
       it "updates the requested course" do
-        Course.any_instance.should_receive(:update).with( {"name" => "My Awesome Class",
-                                                           "start_date" => Date.today.to_s} )
+        Course.any_instance.should_receive(:update).with( valid_attributes )
         put :update, {id: @course.to_param, course: valid_attributes }, valid_session
       end
 
       it "assigns the requested course as @course" do
-        put :update, {:id => @course.to_param, :course => valid_attributes}, valid_session
+        put :update, { id: @course.to_param, course: valid_attributes}, valid_session
         assigns(:course).should eq(@course)
       end
 
       it "redirects to the course" do
         course = Course.create! valid_attributes
-        Enrollment.create!( course: course, user: @user, admin: true )
-        put :update, {:id => course.to_param, :course => valid_attributes}, valid_session
+        FactoryGirl.create :leadership, course: course, user: @user
+        put :update, { id: course.to_param, course: valid_attributes}, valid_session
         response.should redirect_to(course)
       end
     end
@@ -112,16 +112,16 @@ describe CoursesController do
         course = Course.create! valid_attributes
         # Trigger the behavior that occurs when invalid params are submitted
         Course.any_instance.stub(:save).and_return(false)
-        put :update, {:id => course.to_param, :course => { "name" => "invalid value" }}, valid_session
+        put :update, { id: course.to_param, course: { name: "invalid value" }}, valid_session
         assigns(:course).should eq(course)
       end
 
       it "re-renders the 'edit' template" do
         course = Course.create! valid_attributes
-        Enrollment.create!( course: course, user: @user, admin: true )
+        FactoryGirl.create :leadership, course: course, user: @user
         # Trigger the behavior that occurs when invalid params are submitted
         Course.any_instance.stub(:save).and_return(false)
-        put :update, {:id => course.to_param, :course => { "name" => "invalid value" }}, valid_session
+        put :update, { id: course.to_param, course: { :name => "invalid value" }}, valid_session
         response.should render_template("edit")
       end
     end
@@ -130,7 +130,7 @@ describe CoursesController do
   describe "DELETE destroy" do
     before do
       @course = Course.create! valid_attributes
-      Enrollment.create!( course: @course, user: @user, admin: true )
+      FactoryGirl.create :leadership, course: @course, user: @user
     end
 
     it "destroys the requested course" do
