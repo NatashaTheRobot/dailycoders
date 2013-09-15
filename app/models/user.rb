@@ -49,6 +49,10 @@ class User < ActiveRecord::Base
     self.courses.include?(course)
   end
 
+  def in_session?(session)
+    self.sessions.include?(session)
+  end
+
   def admin_for?(course)
     leaderships = self.leaderships.select { |leadership| leadership.course == course }
     leaderships.count > 0

@@ -1,11 +1,12 @@
 require 'spec_helper'
 
 describe SessionsController do
-  before do
+  before :each do
     @user = User.create_with_omniauth(OmniAuth.config.mock_auth[:github])
     @user.admin = true
     @user.save!
     @course = FactoryGirl.create :course
+    FactoryGirl.create :leadership, user: @user, course: @course
   end
 
   let(:valid_attributes) { { start_date: Date.today.advance(weeks: 1),
@@ -16,6 +17,7 @@ describe SessionsController do
   describe "GET index" do
     it "assigns all sessions as @sessions" do
       session = Session.create! valid_attributes
+      FactoryGirl.create :enrollment, user: @user, session: session
       get :index, { course_id: @course.to_param, session_id: session.to_param}, valid_user_session
       assigns(:sessions).should eq([session])
     end
@@ -68,14 +70,16 @@ describe SessionsController do
       it "assigns a newly created but unsaved session as @session" do
         # Trigger the behavior that occurs when invalid params are submitted
         Session.any_instance.stub(:save).and_return(false)
-        post :create, {course_id: @course.to_param, :session => { "start_date" => Date.today.advance(weeks: 2).to_s }}, valid_user_session
+        post :create, {course_id: @course.to_param,
+                       :session => { "start_date" => Date.today.advance(weeks: 2).to_s }}, valid_user_session
         assigns(:session).should be_a_new(Session)
       end
 
       it "re-renders the 'new' template" do
         # Trigger the behavior that occurs when invalid params are submitted
         Session.any_instance.stub(:save).and_return(false)
-        post :create, {course_id: @course.to_param, :session => { "start_date" => Date.today.advance(weeks: 2).to_s }}, valid_user_session
+        post :create, {course_id: @course.to_param,
+                       :session => { "start_date" => Date.today.advance(weeks: 2).to_s }}, valid_user_session
         response.should render_template("new")
       end
     end

@@ -13,6 +13,9 @@
 
 class Session < ActiveRecord::Base
 
+  include Authority::Abilities
+  self.authorizer_name = 'SessionAuthorizer'
+
   extend FriendlyId
   friendly_id :slug_candidates, use: :slugged
 

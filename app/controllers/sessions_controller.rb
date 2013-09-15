@@ -1,10 +1,10 @@
 class SessionsController < ApplicationController
-  before_action :set_session, only: [:show, :edit, :update, :destroy]
   before_action :set_course
+  before_action :set_session, only: [:show, :edit, :update, :destroy]
 
   # GET /courses/:course_id/sessions
   def index
-    @sessions = Session.all
+    @sessions = current_user.sessions
   end
 
   # GET /courses/:course_id/sessions/:id
@@ -14,6 +14,8 @@ class SessionsController < ApplicationController
   # GET /courses/:course_id/sessions/new
   def new
     @session = Session.new
+    @session.course = @course
+    authorize_action_for(@session)
   end
 
   # GET /courses/:course_id/sessions/:id/edit
@@ -23,8 +25,11 @@ class SessionsController < ApplicationController
   # POST /courses/:course_id/sessions
   def create
     @session = Session.new(session_params)
+    @session.course = @course
+    authorize_action_for(@session)
 
     if @session.save
+      Enrollment.create(user: current_user, session: @session)
       redirect_to course_session_path(@course, @session), notice: 'Session was successfully created.'
     else
       render action: 'new'
@@ -47,17 +52,16 @@ class SessionsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_session
-      @session = Session.friendly.find(params[:id])
-      @course = @session.course
-    end
 
     def set_course
       @course = Course.friendly.find(params[:course_id])
     end
 
-    # Only allow a trusted parameter "white list" through.
+    def set_session
+      @session = Session.friendly.find(params[:id])
+      authorize_action_for(@session)
+    end
+
     def session_params
       params.require(:session).permit(:start_date, :end_date, :course_id)
     end
