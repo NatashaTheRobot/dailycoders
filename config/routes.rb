@@ -1,10 +1,12 @@
 Dailycoders::Application.routes.draw do
 
-  resources :courses
-  resources :users, path: 'coders'
-
   root to: "users#new"
-  get "/auth/:provider/callback" => "sessions#create"
-  get "/signout" => "sessions#destroy", :as => :signout
+  get "/auth/:provider/callback" => "user_sessions#create"
+  get "/signout" => "user_sessions#destroy", :as => :signout
+
+  resources :users, path: 'coders'
+  resources :courses do
+    resources :sessions
+  end
 
 end
