@@ -1,0 +1,27 @@
+<h1>Listing sessions</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @sessions.each do |session| %>
+      <tr>
+        <td><%= session.start_date %></td>
+        <td><%= session.end_date %></td>
+        <td><%= link_to 'Show', course_session_path(@course, session) %></td>
+        <td><%= link_to 'Edit', edit_course_session_path(@course, session) %></td>
+        <td><%= link_to 'Destroy', course_session_path(@course, session), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Session', new_course_session_path %>

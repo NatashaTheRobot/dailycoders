@@ -1,6 +1,6 @@
 class CoursesController < ApplicationController
 
-  before_action :set_course, only: [:show, :edit, :update, :destroy]
+  before_action :set_course, only: [:edit, :update, :destroy]
   authorize_actions_for Course, only: [:new, :create]
 
   # GET /courses
@@ -10,6 +10,8 @@ class CoursesController < ApplicationController
 
   # GET /courses/1
   def show
+    # anyone can see the course page
+    @course = Course.friendly.find(params[:id].to_s.downcase)
   end
 
   # GET /courses/new

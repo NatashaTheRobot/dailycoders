@@ -15,6 +15,7 @@ gem "turbolinks", '1.3.0'
 gem 'anjlab-bootstrap-rails', '>= 3.0.0.0', :require => 'bootstrap-rails'
 
 gem 'friendly_id', '5.0.0.beta4'
+gem 'bazaar'
 gem 'authority', '2.7.0'
 
 group :development, :test do
