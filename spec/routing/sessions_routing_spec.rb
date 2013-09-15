@@ -4,31 +4,31 @@ describe SessionsController do
   describe "routing" do
 
     it "routes to #index" do
-      get("/sessions").should route_to("sessions#index")
+      get("/courses/1/sessions").should route_to("sessions#index", course_id: "1")
     end
 
     it "routes to #new" do
-      get("/sessions/new").should route_to("sessions#new")
+      get("courses/1/sessions/new").should route_to("sessions#new", course_id: "1")
     end
 
     it "routes to #show" do
-      get("/sessions/1").should route_to("sessions#show", :id => "1")
+      get("/courses/1/sessions/1").should route_to("sessions#show", course_id: "1", id: "1")
     end
 
     it "routes to #edit" do
-      get("/sessions/1/edit").should route_to("sessions#edit", :id => "1")
+      get("/courses/1/sessions/1/edit").should route_to("sessions#edit", course_id: "1", id: "1")
     end
 
     it "routes to #create" do
-      post("/sessions").should route_to("sessions#create")
+      post("/courses/1/sessions").should route_to("sessions#create", course_id: "1")
     end
 
     it "routes to #update" do
-      put("/sessions/1").should route_to("sessions#update", :id => "1")
+      put("/courses/1/sessions/1").should route_to("sessions#update", course_id: "1", id: "1")
     end
 
     it "routes to #destroy" do
-      delete("/sessions/1").should route_to("sessions#destroy", :id => "1")
+      delete("/courses/1/sessions/1").should route_to("sessions#destroy", course_id: "1", id: "1")
     end
 
   end
