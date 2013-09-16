@@ -11,10 +11,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130915180028) do
+ActiveRecord::Schema.define(version: 20130916141749) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "completions", force: true do |t|
+    t.integer  "task_id"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "completions", ["task_id"], name: "index_completions_on_task_id", using: :btree
+  add_index "completions", ["user_id"], name: "index_completions_on_user_id", using: :btree
 
   create_table "courses", force: true do |t|
     t.string   "name"
@@ -68,6 +78,17 @@ ActiveRecord::Schema.define(version: 20130915180028) do
   add_index "leaderships", ["user_id", "course_id"], name: "index_leaderships_on_user_id_and_course_id", unique: true, using: :btree
   add_index "leaderships", ["user_id"], name: "index_leaderships_on_user_id", using: :btree
 
+  create_table "lessons", force: true do |t|
+    t.integer  "session_id"
+    t.text     "overview"
+    t.datetime "date_available"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "lessons", ["date_available"], name: "index_lessons_on_date_available", using: :btree
+  add_index "lessons", ["session_id"], name: "index_lessons_on_session_id", using: :btree
+
   create_table "sessions", force: true do |t|
     t.integer  "course_id"
     t.date     "start_date"
@@ -90,6 +111,18 @@ ActiveRecord::Schema.define(version: 20130915180028) do
 
   add_index "students", ["course_id"], name: "index_students_on_course_id", using: :btree
   add_index "students", ["user_id"], name: "index_students_on_user_id", using: :btree
+
+  create_table "tasks", force: true do |t|
+    t.string   "title"
+    t.string   "url"
+    t.text     "details"
+    t.integer  "lesson_id"
+    t.string   "summary"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "tasks", ["lesson_id"], name: "index_tasks_on_lesson_id", using: :btree
 
   create_table "users", force: true do |t|
     t.string   "provider"
