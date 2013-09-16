@@ -22,6 +22,7 @@ class Session < ActiveRecord::Base
   belongs_to :course
 
   has_many :enrollments, dependent: :destroy
+  has_many :lessons,  dependent: :destroy
 
   validates :start_date, presence: true
 

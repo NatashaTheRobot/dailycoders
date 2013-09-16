@@ -17,4 +17,5 @@ describe Session do
   it { should belong_to :course }
   it { should validate_presence_of :start_date }
   it { should have_many(:enrollments).dependent(:destroy) }
+  it { should have_many(:lessons).dependent(:destroy) }
 end
