@@ -34,4 +34,8 @@ class Session < ActiveRecord::Base
         Bazaar.object
     ]
   end
+
+  def sorted_lessons
+    self.lessons.sort! { |lesson1, lesson2| lesson1.number <=> lesson2.number }
+  end
 end
