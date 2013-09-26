@@ -1,2 +1,3 @@
 - lessons.each do |lesson|
-  = render partial: 'lessons/show', locals: { lesson: lesson }
+  %h1
+    = link_to "#{lesson.number}. #{lesson.title}"
