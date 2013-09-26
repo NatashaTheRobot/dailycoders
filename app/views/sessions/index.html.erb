@@ -14,7 +14,7 @@
       <tr>
         <td><%= session.start_date %></td>
         <td><%= session.end_date %></td>
-        <td><%= link_to 'Show', course_session_path(@course, session) %></td>
+        <td><%= link_to 'Show', session_path(session) %></td>
         <td><%= link_to 'Edit', edit_course_session_path(@course, session) %></td>
         <td><%= link_to 'Destroy', course_session_path(@course, session), method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>

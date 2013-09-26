@@ -1,5 +1,5 @@
 class SessionsController < ApplicationController
-  before_action :set_course
+  before_action :set_course, except: :show
   before_action :set_session, only: [:show, :edit, :update, :destroy]
 
   # GET /courses/:course_id/sessions
@@ -7,7 +7,7 @@ class SessionsController < ApplicationController
     @sessions = current_user.sessions
   end
 
-  # GET /courses/:course_id/sessions/:id
+  # GET :id
   def show
   end
 
