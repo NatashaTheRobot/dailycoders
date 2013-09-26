@@ -1,0 +1,17 @@
+.row.col-xs-9.col-xs-offset-1.col-sm-9.col-sm-offset-1.col-md-9.col-md-offset-1.col-lg-9.col-lg-offset-1
+  %h1 Your Courses
+
+- @courses.each do |course|
+  .row.col-xs-9.col-xs-offset-1.col-sm-9.col-sm-offset-1.col-md-9.col-md-offset-1.col-lg-9.col-lg-offset-1
+    = course.name
+    = link_to 'Show', course
+    = link_to 'Edit', edit_course_path(course)
+    = link_to 'Destroy', course, method: :delete, data: { confirm: 'Are you sure?' }
+  - course.sessions.each do |session|
+    %ul
+      .row.col-xs-9.col-xs-offset-2.col-sm-9.col-sm-offset-2.col-md-9.col-md-offset-2.col-lg-9.col-lg-offset-2
+        %li= session.slug
+
+
+.row.col-xs-9.col-xs-offset-1.col-sm-9.col-sm-offset-1.col-md-9.col-md-offset-1.col-lg-9.col-lg-offset-1
+  = link_to 'New Course', new_course_path
