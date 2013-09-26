@@ -1,0 +1,5 @@
+= render 'layouts/nav'
+
+.row
+  .col-xs-7.col-xs-offset-1.col-sm-7.col-sm-offset-1.col-md-7.col-md-offset-1.col-lg-7.col-lg-offset-1
+    = render partial: 'lessons/index', locals: { lessons: @session.sorted_lessons }
