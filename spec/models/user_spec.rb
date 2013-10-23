@@ -12,6 +12,8 @@
 #  location    :string(255)
 #  nickname    :string(255)
 #  email       :string(255)
+#  bio         :text
+#  mentor      :boolean
 #
 
 require 'spec_helper'

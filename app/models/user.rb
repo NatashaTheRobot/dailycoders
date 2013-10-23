@@ -12,9 +12,13 @@
 #  location    :string(255)
 #  nickname    :string(255)
 #  email       :string(255)
+#  bio         :text
+#  mentor      :boolean
 #
 
 class User < ActiveRecord::Base
+  extend FriendlyId
+  friendly_id :nickname, use: :slugged
 
   def self.create_with_omniauth(auth)
     create! do |user|
